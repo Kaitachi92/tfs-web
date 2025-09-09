@@ -7,14 +7,15 @@ export default {
     up: async () => {
         const senha = "123456";
 
-        await UserModel.bulkCreate([
-            { name: 'User1', email: 'user1@example.com', password: await bcrypt.hash(senha, 10) },
-            { name: 'User2', email: 'user2@example.com', password: await bcrypt.hash(senha, 10) },
-            { name: 'User3', email: 'user3@example.com', password: await bcrypt.hash(senha, 10) },
-            { name: 'User4', email: 'user4@example.com', password: await bcrypt.hash(senha, 10) },
-            { name: 'User5', email: 'user5@example.com', password: await bcrypt.hash(senha, 10) },
-            { name: 'User6', email: 'user6@example.com', password: await bcrypt.hash(senha, 10) },
-        ])
+        const users = [];
+        for (let i = 1; i <= 15; i++) {
+            users.push({
+                name: `User${i}`,
+                email: `user${i}@example.com`,
+                password: await bcrypt.hash(senha, 10)
+            });
+        }
+        await UserModel.bulkCreate(users);
     },
 
     down: async () => {
