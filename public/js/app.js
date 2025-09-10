@@ -35,4 +35,39 @@ function handlePageClick(page) {
 // Inicialização
 window.addEventListener('DOMContentLoaded', () => {
     loadPage(1);
+    // Adicionar usuário
+    const addBtn = document.getElementById('add-user-btn');
+    if (addBtn) {
+        addBtn.onclick = async () => {
+            const name = prompt('Nome do usuário:');
+            const email = prompt('Email do usuário:');
+            if (name && email) {
+                try {
+                    // Adapte para sua API
+                    await fetch('/api/users', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email })
+                    });
+                    loadPage(currentPage);
+                } catch (err) {
+                    alert('Erro ao adicionar usuário: ' + err.message);
+                }
+            }
+        };
+    }
+
+    // Excluir usuário
+    window.addEventListener('deleteUser', async (e) => {
+        const userId = e.detail;
+        if (confirm('Tem certeza que deseja excluir este usuário?')) {
+            try {
+                // Adapte para sua API
+                await fetch(`/api/users/${userId}`, { method: 'DELETE' });
+                loadPage(currentPage);
+            } catch (err) {
+                alert('Erro ao excluir usuário: ' + err.message);
+            }
+        }
+    });
 });

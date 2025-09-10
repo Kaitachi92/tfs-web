@@ -41,7 +41,10 @@ h1 {
 }
 
 
-img#squirtle {
+img#pikachu {
     /* Limita largura máxima das imagens ↓ */
-    max-width: 100%;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
